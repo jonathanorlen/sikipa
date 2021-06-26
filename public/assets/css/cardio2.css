@@ -1,0 +1,217 @@
+.bg-img img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.bg-img h1 {
+    font-size: 60px;
+    color: #FDCD22;
+    margin-left: 2em!important;
+    margin-top: -14em !important;
+    position: relative;
+    z-index: 1;
+}
+
+.bg-img p {
+    color: white;
+    margin-top: 70px;
+    margin-left: 8em;
+    position: relative;
+    z-index: 1;
+}
+
+#getstart {
+    margin-top: 30px;
+    margin-left: 130px;
+    border-radius: 12px !important;
+    margin-right: 70px;
+    width: 8em;
+    height: 50px;
+    font-size: 17px !important;
+    position: relative;
+    z-index: 1;
+    -webkit-border-radius: 12px !important;
+    -moz-border-radius: 12px !important;
+    -ms-border-radius: 12px !important;
+    -o-border-radius: 12px !important;
+}
+
+.btn-group {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    height: 50px;
+    border-radius: 2px !important;
+    -webkit-border-radius: 2px !important;
+    -moz-border-radius: 2px !important;
+    -ms-border-radius: 2px !important;
+    -o-border-radius: 2px !important;
+}
+
+.btn-warning {
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.logo img {
+    margin-top: 30px;
+    margin-left: -30px;
+    z-index: 1;
+    position: absolute;
+}
+
+.kotak1 {
+    border-radius: 12px;
+    background-color: #363636;
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px;
+    width: 110px;
+    height: 70px;
+    margin-top: -150px;
+    margin-right: -110px;
+    position: relative;
+    z-index: 1;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+
+.kotak2 {
+    border-radius: 12px;
+    background-color: #363636;
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px;
+    width: 110px;
+    height: 70px;
+    margin-top: -70px;
+    margin-right: 120px;
+    position: relative;
+    z-index: 1;
+    -webkit-border-radius: ;
+    -moz-border-radius: ;
+    -ms-border-radius: ;
+    -o-border-radius: ;
+}
+
+.kotak1 h4 {
+    color: #FDCD22;
+    margin-top: -10px;
+}
+
+.kotak1 h5 {
+    color: white;
+    font-size: 10px;
+    padding-bottom: -10px!important;
+}
+
+.kotak2 h4 {
+    color: #FF5555;
+    margin-top: -10px;
+}
+
+.kotak2 h5 {
+    color: white;
+    font-size: 10px;
+    padding-bottom: -10px!important;
+}
+
+section {
+    margin-top: 110px;
+}
+
+.slides {
+    z-index: 1;
+}
+
+li {
+    padding-right: 50px;
+    z-index: 1;
+}
+
+
+/* .bg::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); */
+
+position: absolute;
+bottom: 0;
+
+}
+*/ .slides h4 {
+    color: white;
+    font-family: Raleway;
+    margin-top: 10px;
+}
+.slides p {
+    color: white;
+    font-size: 9pt;
+}
+.swiper-wrapper {
+    margin-top: 100px !important;
+}
+.swiper-slide p {
+    color: white !important;
+    font-weight: lighter;
+}
+.swiper-slide h4 {
+    color: white !important;
+    margin-top: 10px;
+    font-family: raleway;
+}
+.swiper-button {
+    color: white !important;
+}
+.swiper-container {
+    height: 100%;
+    width: 70%;
+    position: relative !important;
+}
+.swiper-slide {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    position: relative !important;
+    margin-right: 10px !important;
+}
+.cap {
+    width: 80% !important;
+}
+#panah {
+    margin-top: 150px;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.bg-img::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    position: absolute;
+    bottom: 0;
+}
+
+/* caption image */
+
+/* caption image */

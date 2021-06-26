@@ -1,0 +1,88 @@
+body {
+    background-color: black;
+    height: 700px;
+}
+
+.jumbotron img {
+    margin-top: 21px;
+}
+
+nav.navbar {
+    margin-top: 20px;
+    background-color: #202020;
+}
+
+#navbarNav {
+    margin-left: 2em;
+}
+
+.nav-link {
+    margin-right: 30px;
+    color: white;
+}
+
+.nav-link i {
+    font-size: 20px;
+}
+
+.judul h1 {
+    text-align: center !important;
+    margin-top: 30px;
+    color: #FDCD22;
+}
+
+.judul h4 {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+
+form {
+    margin-top: 150px;
+}
+
+
+/* .form-control-range {
+    background-color: #FDCD22 !important;
+    color: #FDCD22 !important;
+    width: 550px;
+} */
+
+.btn {
+    /* background-color: #FDCD22; */
+    width: 150px;
+    margin-left: 10px;
+    height: 40px;
+    margin-top: 120px;
+}
+
+#next {
+    background-color: #FDCD22;
+    width: 150px;
+    margin-left: 10px;
+    height: 40px;
+    margin-top: 50px;
+}
+
+#back {
+    margin-top: 50px;
+    background-color: white;
+    width: 150px;
+    margin-left: 0px;
+    height: 40px;
+}
+
+.minggu p {
+    color: white;
+    margin-top: 30px;
+    text-align: center !important;
+}
+
+
+/* #formControlRange {
+    background-color: #FDCD22;
+    color: #FDCD22;
+}
+.form-group {
+    color: #FDCD22;
+} */

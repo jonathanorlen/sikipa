@@ -1,0 +1,41 @@
+.bg img {
+    /* background-image: url("../img/MengisiQuisioner.png"); */
+    width: 1519px;
+    height: 52.1em;
+    margin-top: -5em;
+}
+
+.bg h1 {
+    margin-top: -16em;
+    color: #FDCD22;
+}
+
+.bg h5 {
+    color: white;
+    margin-top: -20em;
+    margin-left: -390px;
+}
+
+.start {
+    margin-top: -100px;
+}
+
+.start button {
+    width: 180px;
+    height: 52px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.kembali {
+    text-decoration: none !important;
+    color: white;
+    margin-top: -45em;
+    font-size: -10px;
+    margin-right: -30px;
+}
+
+.back {
+    text-decoration: none !important;
+    color: white;
+}

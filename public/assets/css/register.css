@@ -1,0 +1,29 @@
+body {
+    background-color: black;
+}
+
+.logo img {
+    margin-top: 10em;
+}
+
+.form-regis {
+    margin-top: 3em;
+}
+
+.form-regis label {
+    color: white;
+}
+
+form {
+    width: 300px;
+}
+
+.btn {
+    width: 300px;
+}
+
+p {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
