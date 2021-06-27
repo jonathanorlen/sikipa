@@ -21,7 +21,7 @@ class PendudukController extends Controller
     {   
         $data['items'] = Penduduk::orderBy('nama','asc')
             ->where('nama','like','%'.$request->search.'%')
-            ->paginate(1);
+            ->paginate(20);
         $data['items']->appends($request->only('search'));
 
         return view('backend.pages.penduduk',$data);

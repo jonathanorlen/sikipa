@@ -22,7 +22,7 @@ class UserController extends Controller
     {   
         $data['items'] = User::orderBy('id','desc')
             ->where('name','like','%'.$request->search.'%')
-            ->paginate(1);
+            ->paginate(20);
         $data['items']->appends($request->only('search'));
 
         return view('backend.pages.user',$data);
