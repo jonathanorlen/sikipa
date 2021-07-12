@@ -15,16 +15,18 @@ class CreatePendudukTable extends Migration
     public function up()
     {
         Schema::create('penduduk', function (Blueprint $table) {
-            $table->string('nik',16);
+            $table->string('nik',20);
             $table->primary('nik');
             $table->string('nama', 50);
-            $table->string('email', 40);
-            $table->string('password', 255);
+            $table->string('email', 40)->nullable();
+            $table->string('password', 255)->nullable();
             $table->bigInteger('nomor_kk')->nullable();
+            $table->string('tempat_lahir', 30);
             $table->date('tanggal_lahir')->nullable();
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->tinyInteger('umur')->nullable();
             $table->string('alamat', 100);
+            $table->string('kelurahan', 50);
             $table->tinyInteger('rt');
             $table->tinyInteger('rw');
             $table->enum('agama', [
