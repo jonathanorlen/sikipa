@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\KartuKeluargaController;
 
 Route::get('login', [LoginController::class, 'index'])->name('admin.login');
@@ -22,16 +23,26 @@ Route::middleware('is_admin')
           ]);
           Route::get('user/{search?}', [UserController::class, 'index'])->name('user.index');
 
-          //Penduduk route with resource except no index
+          //Penduduk route with resource except no index and destroy
           Route::resource('penduduk', PendudukController::class)->except([
-               'index'
+               'index','destroy'
           ]);
+          Route::get('penduduk/delete/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
+          Route::get('penduduk/ganti-status/{penduduk}', [PendudukController::class, 'change_status'])->name('penduduk.ganti_status');
+          Route::put('penduduk/ganti-status/{penduduk}/update', [PendudukController::class, 'save_status'])->name('penduduk.ganti_status_update');
           Route::get('penduduk/{search?}', [PendudukController::class, 'index'])->name('penduduk.index');
 
           Route::resource('kelurahan', KelurahanController::class)->except([
                'index'
           ]);
           Route::get('kelurahan/{search?}', [KelurahanController::class, 'index'])->name('kelurahan.index');
+
+          Route::resource('pekerjaan', PekerjaanController::class)->except([
+               'index','destroy'
+          ]);
+          Route::get('pekerjaan/delete/{pekerjaan}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
+          Route::get('pekerjaan/{search?}', [PekerjaanController::class, 'index'])->name('pekerjaan');
+
 
           Route::get('kelurahan/{kelurahan}/rw', [KelurahanController::class, 'rw_index'])->name('rw');
           Route::post('kelurahan/rw/store', [KelurahanController::class, 'rw_store'])->name('rw.store');
@@ -42,11 +53,12 @@ Route::middleware('is_admin')
           Route::post('kelurahan/rt/store', [KelurahanController::class, 'rt_store'])->name('rt.store');
           Route::delete('kelurahan/{rt}/rt/destroy', [KelurahanController::class, 'rt_destory'])->name('rt.destroy');
           
+          Route::get('kartu-keluarga/card', [KartuKeluargaController::class, 'card'])->name('kartu-keluarga.card');
+          Route::get('kartu-keluarga/getexport', [KartuKeluargaController::class, 'getExport'])->name('kartu-keluarga.getexport');
+          Route::post('kartu-keluarga/import', [KartuKeluargaController::class, 'import'])->name('kartu-keluarga.import');
           Route::resource('kartu-keluarga', KartuKeluargaController::class)->except([
                'index'
           ]);
-          Route::get('kartu-keluarga/card', [KartuKeluargaController::class, 'card'])->name('kartu-keluarga.card');
-          Route::post('kartu-keluarga/import', [KartuKeluargaController::class, 'import'])->name('kartu-keluarga.import');
           Route::get('kartu-keluarga/{search?}', [KartuKeluargaController::class, 'index'])->name('kartu-keluarga');
           
           Route::get('rw', [KelurahanController::class, 'rw'])->name('getrw');

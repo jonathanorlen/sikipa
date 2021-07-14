@@ -30,8 +30,8 @@ Breadcrumbs::for('penduduk', function ($trail) {
     $trail->push('Penduduk', route('admin.penduduk.index'));
 });
 
-// Dashboard > Penduduk > Detail
-Breadcrumbs::for('penduduk.detail', function ($trail, $penduduk) {
+// Dashboard > Penduduk > data
+Breadcrumbs::for('penduduk.data', function ($trail, $penduduk) {
     $trail->parent('penduduk');
     $trail->push($penduduk->nama, route('admin.penduduk.show', $penduduk->nik));
 });
@@ -83,5 +83,23 @@ Breadcrumbs::for('kartu_keluarga.create', function ($trail) {
 // Dashboard > Kartu Keluarga > [Edit]
 Breadcrumbs::for('kartu_keluarga.edit', function ($trail, $data) {
     $trail->parent('kartu_keluarga');
-    $trail->push($data->nomor_kk, route('admin.kartu-keluarga.edit', $data->nomor_kk));
+    $trail->push('Edit', route('admin.kartu-keluarga.edit', $data->nomor_kk));
+});
+
+// Dashboard > Master Pekerjaan
+Breadcrumbs::for('pekerjaan', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Master Pekerjaan', route('admin.pekerjaan'));
+});
+
+// Dashboard > Master Pekerjaan > Create
+Breadcrumbs::for('pekerjaan.create', function ($trail) {
+    $trail->parent('pekerjaan');
+    $trail->push('Tambah', route('admin.pekerjaan.create'));
+});
+
+// Dashboard > Master Pekerjaan > [Edit]
+Breadcrumbs::for('pekerjaan.edit', function ($trail, $data) {
+    $trail->parent('pekerjaan');
+    $trail->push($data->nama, route('admin.pekerjaan.edit', $data->id));
 });

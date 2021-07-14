@@ -13,11 +13,7 @@
           <i class="fas fa-fire"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li class="{{ Request::is('admin/user*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.user.index') }}">
-          <i class="far fa-user"></i> <span>User</span>
-        </a>
-      </li>
+      <li class="menu-header">Administrasi</li>
       <li class="dropdown 
         {{ Request::is('admin/penduduk*') ? 'active' : '' }}
         {{ Request::is('admin/kartu-keluarga*') ? 'active' : '' }}
@@ -36,9 +32,20 @@
           </li>
         </ul>
       </li>
+      <li class="menu-header">Master Data</li>
+      <li class="{{ Request::is('admin/pekerjaan*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.pekerjaan') }}">
+          <i class="fa fa-user-friends"></i><span>Pekerjaan</span>
+        </a>
+      </li>
       <li class="{{ Request::is('admin/kelurahan*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.kelurahan.index') }}">
           <i class="fa fa-user-friends"></i><span>Kelurahan</span>
+        </a>
+      </li>
+      <li class="{{ Request::is('admin/user*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.user.index') }}">
+          <i class="far fa-user"></i> <span>User</span>
         </a>
       </li>
     </ul>

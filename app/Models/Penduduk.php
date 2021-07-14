@@ -19,10 +19,10 @@ class Penduduk extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'nik',
-        'nama',
         'nomor_kk',
+        'ktp',
+        'nama',
         'tanggal_lahir',
-        'tempat_lahir',
         'jenis_kelamin',
         'umur',
         'alamat',
@@ -35,6 +35,9 @@ class Penduduk extends Authenticatable implements MustVerifyEmail
         'golongan_darah',
         'status_keluarga',
         'status_perkawinan',
+        'dokumen_kk',
+        'dokumen_ktp',
+        'catatan',
         'kewarganegaraan',
         'ayah',
         'ibu',

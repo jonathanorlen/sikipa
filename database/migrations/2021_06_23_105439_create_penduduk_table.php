@@ -21,8 +21,8 @@ class CreatePendudukTable extends Migration
             $table->string('email', 40)->nullable();
             $table->string('password', 255)->nullable();
             $table->bigInteger('nomor_kk')->nullable();
-            $table->string('tempat_lahir', 30);
-            $table->date('tanggal_lahir')->nullable();
+            $table->string('tempat_lahir', 30)->nullable();
+            $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->tinyInteger('umur')->nullable();
             $table->string('alamat', 100);
@@ -49,6 +49,7 @@ class CreatePendudukTable extends Migration
             $table->text('catatan')->nullable();
             $table->string('dokumen_kk', 30)->nullable();
             $table->string('dokumen_ktp', 30)->nullable();
+            $table->string('ktp',255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
