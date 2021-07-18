@@ -224,15 +224,6 @@ class KartuKeluargaController extends Controller
         $file->move('excel',$nama_file);
         try{
             Excel::import(new PendudukImport, public_path('/excel/'.$nama_file));
-
-            $data = Excel::toCollection(new PendudukImport, public_path('/excel/'.$nama_file));
-            $group = $data->first()->groupBy('nomor_kk');
-            foreach($group as $key => $item){
-                $data['nomor_kk'] = $key;
-                KartuKeluarga::firstOrCreate([
-                    'nomor_kk' => $key
-                ]);
-            }
         }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             return response()->json(['code' => '500', 'message' => $failures]);

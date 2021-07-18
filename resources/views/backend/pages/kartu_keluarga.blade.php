@@ -277,9 +277,9 @@
               <ul id="error" class="mb-0">
 
               </ul>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </button> --}}
             </div>
             <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-success">
               <span id="error-import-message">Data Berhasil Di Upload
@@ -441,10 +441,12 @@
           // },
           success: function(response) {
             if (response.code == 200) {
+              $("#alert-error").hide();
               $("#alert-success").show();
               window.setTimeout('refresh()', 3000);
             } else {
               $("#alert-error").show();
+              $("#alert-success").hide();
               let ul = document.getElementById("error");
               ul.innerHTML = "";
               response.message.forEach(data => {

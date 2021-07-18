@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Penduduk;
+use App\Models\KartuKeluarga;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -50,6 +51,10 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
     public function model(array $row)
     {   
         $tanggal_lahir = $this->transformDate($row['tanggal_lahir']);
+        KartuKeluarga::firstOrCreate([
+            'nomor_kk' => $row['nomor_kk']
+        ]);
+                
         return new Penduduk([
             'nik' => $row['nik'],
             'nama' => $row['nama_lengkap'],

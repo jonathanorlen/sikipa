@@ -36,6 +36,12 @@ Breadcrumbs::for('penduduk.data', function ($trail, $penduduk) {
     $trail->push($penduduk->nama, route('admin.penduduk.show', $penduduk->nik));
 });
 
+// Dashboard > Penduduk > Create
+Breadcrumbs::for('penduduk.create', function ($trail) {
+    $trail->parent('penduduk');
+    $trail->push("Form Add Penduduk", route('admin.penduduk.create'));
+});
+
 // Dashboard > Kelurahan
 Breadcrumbs::for('kelurahan', function ($trail) {
     $trail->parent('dashboard');

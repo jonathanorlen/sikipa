@@ -242,8 +242,8 @@
                 <label>Alamat</label>
                 <textarea name="alamat" id="" cols="30" rows="0"
                   class="form-control  @error('alamat') is-invalid @enderror" style="height:135px !important" required>
-                                                                                                                                                                                                                                                                                                                              {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
-                                                                                                                                                                                                                                                                                                                          </textarea>
+                                                                                                                                                                                                                                                                                                                                  {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
+                                                                                                                                                                                                                                                                                                                              </textarea>
                 @error('alamat')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -451,7 +451,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <img src="{{ url('images/ktp') . '/' . $data->ktp }}" alt="" width="100%">
+          @if (isset($data->ktp))
+            <img src="{{ url('images/ktp') . '/' . $data->ktp }}" alt="" width="100%">
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -463,26 +465,6 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
   </script>
   <script type="text/javascript">
-    function gambar() {
-      var modal = document.getElementById("myModal");
-      // var img = "{{ url('images/ktp') . '/' . $data->ktp }}";
-      var modalImg = document.getElementById("img01");
-      var captionText = document.getElementById("caption");
-
-      modal.style.display = "block";
-      // modalImg.src = img;
-      captionText.innerHTML = this.alt;
-    }
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-    }
-
     var url = {{ Request::segment(3) }}
     if (url != 'create') {
       hide();
