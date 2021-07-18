@@ -5,9 +5,55 @@
   {{ Breadcrumbs::render('kelurahan') }}
 @endsection
 @section('content')
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <a href="{{ route('admin.kelurahan.create') }}" class="btn btn-icon btn-lg btn-info float-right">
+  <div class="row mb-0">
+    <div class="col-md-2 col-6">
+      <div class="card card-statistic-2">
+        {{-- <div class="card-icon bg-primary  m-2">
+          <i class="far fa-user"></i>
+        </div> --}}
+        <div class="card-wrap">
+          <div class="card-header pt-2">
+            <h4>Kelurahan</h4>
+          </div>
+          <div class="card-body mt-1">
+            <h4>{{ $items->count() }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 col-6">
+      <div class="card card-statistic-2">
+        {{-- <div class="card-icon bg-primary  m-2">
+          <i class="far fa-user"></i>
+        </div> --}}
+        <div class="card-wrap">
+          <div class="card-header pt-2">
+            <h4>RT</h4>
+          </div>
+          <div class="card-body mt-1">
+            <h4>{{ $rt->count() }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 col-6">
+      <div class="card card-statistic-2">
+        {{-- <div class="card-icon bg-primary  m-2">
+          <i class="far fa-user"></i>
+        </div> --}}
+        <div class="card-wrap">
+          <div class="card-header pt-2">
+            <h4>RW</h4>
+          </div>
+          <div class="card-body mt-1">
+            <h4>{{ $rw->count() }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 ml-auto">
+      <a href="{{ route('admin.kelurahan.create') }}"
+        class="btn btn-icon btn-lg btn-info float-right align-items-center mb-2">
         <i class="fas fa-plus"></i>
         Tambah Kelurahan
       </a>

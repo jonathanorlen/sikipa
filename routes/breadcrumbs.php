@@ -86,6 +86,18 @@ Breadcrumbs::for('kartu_keluarga.edit', function ($trail, $data) {
     $trail->push('Edit', route('admin.kartu-keluarga.edit', $data->nomor_kk));
 });
 
+// Dashboard > Kartu Keluarga > [Data KK]
+Breadcrumbs::for('kartu_keluarga.list', function ($trail,$nomor_kk) {
+    $trail->parent('kartu_keluarga');
+    $trail->push($nomor_kk, route('admin.kartu-keluarga.list', $nomor_kk));
+});
+
+// Dashboard > Kartu Keluarga > [Data KK] > [Detail]
+Breadcrumbs::for('kartu_keluarga.detail', function ($trail,$data) {
+    $trail->parent('kartu_keluarga.list', $data->nomor_kk);
+    $trail->push($data->nama, route('admin.kartu-keluarga.detail', [$data->nomor_kk, $data->nik]));
+});
+
 // Dashboard > Master Pekerjaan
 Breadcrumbs::for('pekerjaan', function ($trail) {
     $trail->parent('dashboard');

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\KartuKeluarga;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use App\Exports\PendudukImport;
+use App\Imports\PendudukImport;
 use App\Exports\PendudukExport;
-use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades\Excel;
 use DB;
+use Excel;
 use Validator;
 use Str;
 
@@ -62,6 +64,20 @@ class KartuKeluargaController extends Controller
         // $data['items']->appends($request->only('search'));
 
         return view('backend.pages.kartu_keluarga', $data);
+    }
+    
+    public function list($nomor_kk)
+    {   
+        $data['nomor_kk'] = $nomor_kk;
+        $data['items'] = Penduduk::orderBy('nik', 'asc')->where("nomor_kk", $nomor_kk)->get();
+
+        return view('backend.pages.kartu_keluarga_list', $data);
+    }
+    
+    public function detail($nomor_kk,Penduduk $penduduk)
+    {
+        $data['data'] = $penduduk;
+        return view('backend.pages.kartu_keluarga_anggota_form', $data);
     }
 
 
@@ -169,12 +185,20 @@ class KartuKeluargaController extends Controller
             $data->where('jenis_kelamin','=',$req->jenis_kelamin);
         }
 
+        if($req->umur_awal){
+            $data->where('umur','>=',$req->umur_awal);
+        }
+
+        if($req->umur_akhir){
+            $data->where('umur','<=',$req->umur_akhir);
+        }
+
         return response()->json(array('code' => 200,'jumlah' => $data->count()));
     }
 
-    public function export() 
+    public function export(Request $request) 
     {
-        return Excel::download(new PendudukExport, 'penduduk.xlsx');
+        return Excel::download(new PendudukExport($request), 'penduduk.xlsx');
     }
 
     public function import(Request $request){

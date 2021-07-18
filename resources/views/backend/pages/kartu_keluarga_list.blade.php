@@ -1,40 +1,14 @@
 @extends('backend.layouts.app')
-@section('title', 'Kartu Keluarga')
-@section('header', 'Kartu Keluarga')
+@section('title', 'Keluarga')
+@section('header', 'Keluarga')
 @section('breadcrumb')
-  {{ Breadcrumbs::render('kartu_keluarga') }}
+  {{ Breadcrumbs::render('kartu_keluarga.list', $nomor_kk) }}
 @endsection
-@push('styles')
-  <link rel="stylesheet"
-    href="{{ url('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ url('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
-@endpush
 @section('content')
-  <div class="row mb-0">
-    <div class="col-md-3 col-12">
-      <div class="card card-statistic-2">
-        <div class="card-icon bg-primary  m-2">
-          <i class="far fa-user"></i>
-        </div>
-        <div class="card-wrap">
-          <div class="card-header pt-2">
-            <h4>Keluarga</h4>
-          </div>
-          <div class="card-body">
-            <h3>{{ $items->count() }}</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 ml-auto">
-      <a href="{{ route('admin.kartu-keluarga.create') }}" class="btn btn-icon btn-lg btn-info float-right mb-2"><i
-          class="fas fa-plus"></i> Tambah</a>
-      <a id="import-excel" data-toggle="modal" data-target="#modal-import"
-        class="btn btn-icon btn-lg btn-outline-light float-right mr-2 mb-2"><i class="fas fa-file-upload"></i> Import
-        Excel</a>
-      <a id="export-excel" data-toggle="modal" data-target="#modal-export"
-        class="btn btn-icon btn-lg btn-outline-light float-right mr-2 mb-2"><i class="fas fa-file-download"></i> Export
-        Excel</a>
+  <div class="row mb-4">
+    <div class="col-md-12">
+      {{-- <a href="{{ route('admin.kartu-keluarga.create') }}" class="btn btn-icon btn-lg btn-info float-right"><i
+          class="fas fa-plus"></i> Tambah</a> --}}
     </div>
   </div>
   <div class="section-body">
@@ -55,45 +29,33 @@
         @endif
         <div class="card">
           <div class="card-body">
-            {{-- <form action="{{ route('admin.kartu-keluarga') }}" method="get"
-              class="form-group w-25 float-right mb-0 mt-3 ml-3">
-              <div class="input-group mb-3">
-                <input type="text" name="search" value="{{ Request::get('search') }}" class="form-control"
-                  placeholder="Search All" aria-label="">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">Button</button>
-                </div>
-              </div>
-            </form> --}}
             <div class="table-responsive">
-              <table class="table table-striped responsive table-md" id="table">
-                <thead>
+              <table class="table table-striped table-md">
+                <tbody>
                   <tr>
                     <th>#</th>
-                    <th>Nomor KK</th>
-                    <th>Anggota Keluarga</th>
+                    <th>Nama</th>
+                    <th>Anggota</th>
+                    <th>Tempat Lahir</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
                     <th>Action</th>
                   </tr>
-                </thead>
-                <tbody>
                   @php
                     $no = 1;
                   @endphp
                   @foreach ($items as $key => $item)
                     <tr>
                       <td>{{ ++$key }}</td>
-                      <td>{{ $item->nomor_kk }}</td>
-                      <td><span class="badge badge-pill badge-dark">{{ $item->anggotKeluarga->count() }} Anggota </span>
-                      </td>
+                      <td>{{ $item->nama }}</td>
+                      <td>{{ $item->status_keluarga }}</td>
+                      <td>{{ $item->tempat_lahir }}</td>
+                      <td>{{ date('d M Y', strtotime($item->tanggal_lahir)) }}</td>
+                      <td>{{ $item->jenis_kelamin }}</td>
                       <td>
-                        <a href="{{ route('admin.kartu-keluarga.edit', $item->id) }}" class="btn btn-info"><i
-                            class="fa fa-pencil-alt"></i>
+                         <a href="{{ route('admin.kartu-keluarga.detail', [$item->nomor_kk,$item->nik]) }}" class="btn btn-info"><i
+                            class="fa fa-eye"></i>
                         </a>
-                        @if ($item->anggotKeluarga->count() != 0)
-                          <a href="{{ route('admin.kartu-keluarga.list', $item->nomor_kk) }}" class="btn btn-info"><i
-                              class="fa fa-users"></i>
-                          </a>
-                        @endif
                       </td>
                     </tr>
                     @php
@@ -173,13 +135,11 @@
             <div class="form-row">
               <div class="form-group col-6">
                 <label for="">Umur</label>
-                <input type="number" name="umur_awal" id="umur_awal" class="form-control" placeholder="Umur Awal"
-                  onchange="get_view()">
+                <input type="number" name="umur_awal" id="umur_awal" class="form-control" placeholder="Umur Awal" onchange="get_view()">
               </div>
               <div class="form-group col-6">
                 <label for="">&nbsp</label>
-                <input type="number" name="umur_akhir" id="umur_akhir" class="form-control" placeholder="Umur Akhir"
-                  onchange="get_view()">
+                <input type="number" name="umur_akhir" id="umur_akhir" class="form-control" placeholder="Umur Akhir" onchange="get_view()">
               </div>
             </div>
             <div class="form-group">
@@ -303,17 +263,8 @@
       </div>
     </div>
   </div>
-  <script src="{{ url('assets/modules/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ url('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ url('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+  <script src="{{ url('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
   <script>
-    $("#table").DataTable({
-      "columnDefs": [{
-        "sortable": false,
-        "targets": [2]
-      }]
-    });
-
     function get_view(e) {
       let form_data = $("#export-data").serialize();
       $.ajax({
@@ -327,7 +278,7 @@
           if (response.code == 200) {
             if (response.jumlah == 0) {
               $("#export-btn").prop('disabled', true);
-            } else {
+            }else{
               $("#export-btn").prop('disabled', false);
             }
             $("#jumlah-import").html(response.jumlah);
@@ -356,50 +307,46 @@
         // beforeSend: function() {
         //   $("#progress").show();
         // },
-        success: function(response, status, xhr) {
-          // check for a filename
-          var filename = "";
-          var disposition = xhr.getResponseHeader('Content-Disposition');
-          if (disposition && disposition.indexOf('attachment') !== -1) {
-            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-            var matches = filenameRegex.exec(disposition);
-            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-          }
+        success: function (response, status, xhr) {
+                // check for a filename
+                var filename = "";
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = filenameRegex.exec(disposition);
+                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                }
 
-          var type = xhr.getResponseHeader('Content-Type');
-          var blob = new Blob([response], {
-            type: type
-          });
+                var type = xhr.getResponseHeader('Content-Type');
+                var blob = new Blob([response], { type: type });
 
-          if (typeof window.navigator.msSaveBlob !== 'undefined') {
-            // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
-            window.navigator.msSaveBlob(blob, filename);
-          } else {
-            var URL = window.URL || window.webkitURL;
-            var downloadUrl = URL.createObjectURL(blob);
+                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+                    window.navigator.msSaveBlob(blob, filename);
+                } else {
+                    var URL = window.URL || window.webkitURL;
+                    var downloadUrl = URL.createObjectURL(blob);
 
-            if (filename) {
-              // use HTML5 a[download] attribute to specify filename
-              var a = document.createElement("a");
-              // safari doesn't support this yet
-              if (typeof a.download === 'undefined') {
-                window.location = downloadUrl;
-              } else {
-                a.href = downloadUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-              }
-            } else {
-              window.location = downloadUrl;
-            }
+                    if (filename) {
+                        // use HTML5 a[download] attribute to specify filename
+                        var a = document.createElement("a");
+                        // safari doesn't support this yet
+                        if (typeof a.download === 'undefined') {
+                            window.location = downloadUrl;
+                        } else {
+                            a.href = downloadUrl;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                        }
+                    } else {
+                        window.location = downloadUrl;
+                    }
 
-            setTimeout(function() {
-              URL.revokeObjectURL(downloadUrl);
-            }, 100); // cleanup
-          }
+                    setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+                }
 
-        },
+            },
         error: function(response) {
           console.log('error');
           console.log(response);

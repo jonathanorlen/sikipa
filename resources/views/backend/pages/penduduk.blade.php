@@ -10,9 +10,24 @@
   <link rel="stylesheet" href="{{ url('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
 @endpush
 @section('content')
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <a href="{{ route('admin.penduduk.create') }}" class="btn btn-icon btn-lg btn-info float-right"><i
+  <div class="row mb-0">
+    <div class="col-md-3 col-12">
+      <div class="card card-statistic-2">
+        <div class="card-icon bg-primary  m-2">
+          <i class="far fa-user"></i>
+        </div>
+        <div class="card-wrap">
+          <div class="card-header pt-2">
+            <h4>Penduduk</h4>
+          </div>
+          <div class="card-body mt-1">
+            <h4>{{ $items->count() }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 ml-auto">
+      <a href="{{ route('admin.penduduk.create') }}" class="btn btn-icon btn-lg btn-info float-right  mb-2"><i
           class="fas fa-plus"></i> Tambah</a>
       {{-- <a id="import-excel" data-toggle="modal" data-target="#modal-import"
         class="btn btn-icon btn-lg btn-outline-light float-right mr-2"><i class="fas fa-file-upload"></i> Import Excel</a>
@@ -91,7 +106,8 @@
                   @foreach ($items as $key => $item)
                     <tr>
                       <td class="
-                                                            @if ($item->dokumen_ktp == '' ||
+                                                                                      @if ($item->
+                        dokumen_ktp == '' ||
                         $item->dokumen_ktp ==
                         'Belum
                         Lengkap') border-left border-warning @endif

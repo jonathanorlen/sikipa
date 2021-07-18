@@ -48,14 +48,16 @@ Route::middleware('is_admin')
           Route::post('kelurahan/rw/store', [KelurahanController::class, 'rw_store'])->name('rw.store');
           Route::delete('kelurahan/{rw}/destroy', [KelurahanController::class, 'rw_destory'])->name('rw.destroy');
 
-
           Route::get('kelurahan/{kelurahan}/{rw}', [KelurahanController::class, 'rt_index'])->name('rt');
           Route::post('kelurahan/rt/store', [KelurahanController::class, 'rt_store'])->name('rt.store');
           Route::delete('kelurahan/{rt}/rt/destroy', [KelurahanController::class, 'rt_destory'])->name('rt.destroy');
           
           Route::get('kartu-keluarga/card', [KartuKeluargaController::class, 'card'])->name('kartu-keluarga.card');
+          Route::get('kartu-keluarga/list/{nomor_kk}', [KartuKeluargaController::class, 'list'])->name('kartu-keluarga.list');
+          Route::get('kartu-keluarga/list/{nomor_kk}/{penduduk}', [KartuKeluargaController::class, 'detail'])->name('kartu-keluarga.detail');
           Route::get('kartu-keluarga/getexport', [KartuKeluargaController::class, 'getExport'])->name('kartu-keluarga.getexport');
           Route::post('kartu-keluarga/import', [KartuKeluargaController::class, 'import'])->name('kartu-keluarga.import');
+          Route::get('kartu-keluarga/export', [KartuKeluargaController::class, 'export'])->name('kartu-keluarga.export');
           Route::resource('kartu-keluarga', KartuKeluargaController::class)->except([
                'index'
           ]);

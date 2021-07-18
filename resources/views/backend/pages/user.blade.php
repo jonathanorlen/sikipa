@@ -5,9 +5,24 @@
   {{ Breadcrumbs::render('user') }}
 @endsection
 @section('content')
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <a href="{{ route('admin.user.create') }}" class="btn btn-icon btn-lg btn-info float-right"><i
+  <div class="row mb-0">
+    <div class="col-md-3 col-12">
+      <div class="card card-statistic-2">
+        <div class="card-icon bg-primary  m-2">
+          <i class="far fa-user"></i>
+        </div>
+        <div class="card-wrap">
+          <div class="card-header pt-2">
+            <h4>User</h4>
+          </div>
+          <div class="card-body mt-1">
+            <h4>{{ $items->count() }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 ml-auto">
+      <a href="{{ route('admin.user.create') }}" class="btn btn-icon btn-lg btn-info float-right mb-2"><i
           class="fas fa-plus"></i> Tambah User</a>
     </div>
   </div>

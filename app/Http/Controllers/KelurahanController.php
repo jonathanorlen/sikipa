@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kelurahan;
 use App\Models\RW;
 use App\Models\RT;
+use DB;
 
 class KelurahanController extends Controller
 {
@@ -22,6 +23,8 @@ class KelurahanController extends Controller
         $data['items'] = Kelurahan::orderBy('kelurahan', 'asc')
             ->where('kelurahan', 'like', '%' . $request->search . '%')
             ->paginate(20);
+        $data['rt'] = DB::table('rt')->selectRaw('count(*)');
+        $data['rw'] = DB::table('rw')->selectRaw('count(*)');
         $data['items']->appends($request->only('search'));
 
         return view('backend.pages.kelurahan', $data);
