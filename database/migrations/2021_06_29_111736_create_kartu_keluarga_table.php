@@ -15,7 +15,7 @@ class CreateKartuKeluargaTable extends Migration
     {
         Schema::create('kartu_keluarga', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nomor_kk');
+            $table->bigInteger('nomor_kk')->unsigned();
             $table->string('foto', 255)->nullable()->default('image.jpg');
             $table->timestamps();
         });

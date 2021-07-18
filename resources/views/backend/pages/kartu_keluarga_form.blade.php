@@ -53,6 +53,17 @@
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
               </div>
+              <div class="col-md-6">
+                @if (isset($data->foto))
+                  <div class="form-group col-md-4" id="lihat-foto">
+                    <label>Lihat Foto</label>
+                    <br>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Lihat Foto
+                    </button>
+                  </div>
+                @endif
+              </div>
             </div>
           </div>
           <div id="detination"></div>
@@ -69,6 +80,26 @@
 @endsection
 
 @push('after-scripts')
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="{{ url('images/kartu_keluarga') . '/' . $data->foto }}" alt="" width="100%">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     let jumlah = 0;
 

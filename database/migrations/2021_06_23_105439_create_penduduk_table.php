@@ -20,7 +20,7 @@ class CreatePendudukTable extends Migration
             $table->string('nama', 50);
             $table->string('email', 40)->nullable();
             $table->string('password', 255)->nullable();
-            $table->bigInteger('nomor_kk')->nullable();
+            $table->bigInteger('nomor_kk')->unsigned()->nullable();
             $table->string('tempat_lahir', 30)->nullable();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();

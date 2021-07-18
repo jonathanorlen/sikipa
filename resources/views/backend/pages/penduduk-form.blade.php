@@ -242,8 +242,8 @@
                 <label>Alamat</label>
                 <textarea name="alamat" id="" cols="30" rows="0"
                   class="form-control  @error('alamat') is-invalid @enderror" style="height:135px !important" required>
-                                                                                                                                                                            {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
-                                                                                                                                                                        </textarea>
+                                                                                                                                                                                                                                                                                                                              {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
+                                                                                                                                                                                                                                                                                                                          </textarea>
                 @error('alamat')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -412,7 +412,16 @@
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
               </div>
-              <div class="form-group col-md-4">
+              @if (isset($data->ktp))
+                <div class="form-group col-md-4" id="lihat-foto">
+                  <label>Lihat Foto</label>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Lihat Foto
+                  </button>
+                </div>
+              @endif
+              <div class="form-group col-md-4" id="upload-foto">
                 <label>Foto KTP</label>
                 <input type="file" name="ktp" id="ktp" class="form-control @error('ktp')is-invalid @enderror">
                 @error('ktp')
@@ -431,9 +440,49 @@
 @endsection
 
 @push('after-scripts')
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="{{ url('images/ktp') . '/' . $data->ktp }}" alt="" width="100%">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
   </script>
   <script type="text/javascript">
+    function gambar() {
+      var modal = document.getElementById("myModal");
+      // var img = "{{ url('images/ktp') . '/' . $data->ktp }}";
+      var modalImg = document.getElementById("img01");
+      var captionText = document.getElementById("caption");
+
+      modal.style.display = "block";
+      // modalImg.src = img;
+      captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
     var url = {{ Request::segment(3) }}
     if (url != 'create') {
       hide();
@@ -444,6 +493,8 @@
       $("#form select").prop("disabled", true);
       $("#form textarea").prop("disabled", true);
       $("#btn-close").hide();
+      $("#upload-foto").hide();
+      $("#lihat-foto").show();
       $("#btn-edit").show();
       $(".card-footer").hide()
     }
@@ -452,7 +503,9 @@
       $("#form input").prop("disabled", false);
       $("#form select").prop("disabled", false);
       $("#form textarea").prop("disabled", false);
-      $(".card-footer").show()
+      $(".card-footer").show();
+      $("#upload-foto").show();
+      $("#lihat-foto").hide();
       $("#btn-close").show();
       $("#btn-edit").hide();
     }
