@@ -223,7 +223,7 @@ class KartuKeluargaController extends Controller
 		// upload ke folder file_siswa di dalam folder public
         $file->move('excel',$nama_file);
         try{
-            $import = Excel::import(new PendudukImport, public_path('/excel/'.$nama_file));
+            Excel::import(new PendudukImport, public_path('/excel/'.$nama_file));
 
             $data = Excel::toCollection(new PendudukImport, public_path('/excel/'.$nama_file));
             $group = $data->first()->groupBy('nomor_kk');
