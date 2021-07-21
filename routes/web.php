@@ -22,9 +22,11 @@ Route::get('/register', [MainController::class, 'register'])->name('register');
 Route::post('/register-store', [RegisterController::class, 'create'])->name('register-create');
 
 Route::prefix('user')
+     ->name('user.')
      ->middleware(['is_penduduk'])
      ->group(function () {
-          Route::get('/dashboard', [MainController::class, 'dashboard'])->name('user.dashboard');
-          Route::get('/profile', [MainController::class, 'profile'])->name('user.profile');
-          Route::get('/logout', [MainController::class, 'logout'])->name('user.logout');
+          Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+          Route::get('/profile', [MainController::class, 'profile'])->name('profile');
+          Route::post('/update-profile/{penduduk}', [MainController::class, 'profileUpdate'])->name('profile-update');
+          Route::get('/logout', [MainController::class, 'logout'])->name('logout');
      });

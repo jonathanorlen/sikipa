@@ -125,57 +125,6 @@
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
               </div>
-              <div class="form-group col-md-6">
-                <label>Pendidikan</label>
-                <select name="pendidikan" id="pendidikan" class="form-control @error('pendidikan')is-invalid @enderror"
-                  required>
-                  <option value="" hidden>Pilih Pendidikan</option>
-                  <option value="Tidak/Belum Sekolah"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Tidak/Belum Sekolah' ? 'selected' : null) : @old('pendidikan') == 'Tidak/Belum Sekolah') ? 'selected' : null }}>
-                    Tidak/Belum Sekolah</option>
-                  <option value="Belum Tamat SD/Sederajat"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Belum Tamat SD/Derajat' ? 'selected' : null) : @old('pendidikan') == 'Belum Tamat SD/Derajat') ? 'selected' : null }}>
-                    Belum Tamat SD/Sederajat</option>
-                  <option value="SLTP/Sederajat"
-                    {{ (isset($edit) ? ($data->pendidikan == 'SLTP/Sederajat' ? 'selected' : null) : @old('pendidikan') == 'SLTP/Sederajat') ? 'selected' : null }}>
-                    SLTP/Sederajat</option>
-                  <option value="SLTA/Sederajat"
-                    {{ (isset($edit) ? ($data->pendidikan == 'SLTA/Sederajat' ? 'selected' : null) : @old('pendidikan') == 'SLTA/Sederajat') ? 'selected' : null }}>
-                    SLTA/Sederajat</option>
-                  <option value="Akademi/Diploma III/Sarjana Muda"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Akademi/Diploma III/Sarjana Muda' ? 'selected' : null) : @old('pendidikan') == 'Akademi/Diploma III/Sarjana Muda') ? 'selected' : null }}>
-                    Akademi/Diploma III/Sarjana Muda</option>
-                  <option value="Diploma IV/ Strata I"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Diploma IV/ Strata I' ? 'selected' : null) : @old('pendidikan') == 'Diploma IV/ Strata I') ? 'selected' : null }}>
-                    Diploma IV/ Strata I</option>
-                  <option value="Strata II"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Strata II' ? 'selected' : null) : @old('pendidikan') == 'Strata II') ? 'selected' : null }}>
-                    Strata II</option>
-                  <option value="Strata III"
-                    {{ (isset($edit) ? ($data->pendidikan == 'Strata III' ? 'selected' : null) : @old('pendidikan') == 'Strata III') ? 'selected' : null }}>
-                    Strata III</option>
-                </select>
-                @error('pendidikan')
-                  <small class="text-danger">{{ $message }}</small>
-                @enderror
-              </div>
-              <div class="form-group col-md-6">
-                <label>Pekerjaan</label>
-                <select name="pekerjaan" id="pekerjaan" class="form-control @error('pekerjaan')is-invalid @enderror"
-                  required>
-                  <option value="" hidden>Pilih Pekerjaan</option>
-                  @foreach ($pekerjaan as $item)
-                    <option value="{{ $item->nama }}"
-                      {{ (isset($edit) ? ($item->nama == $data->pekerjaan ? 'selected' : null) : $item->nama == @old('pekerjaan')) ? 'selected' : null }}>
-                      {{ $item->nama }}
-                    </option>
-                  @endforeach
-                </select>
-                @error('pekerjaan')
-                  <small class="text-danger">{{ $message }}</small>
-                @enderror
-              </div>
-
               <div class="form-group col-md-3">
                 <label>Agama</label>
                 <select name="agama" id="agama" class="form-control @error('agama')is-invalid @enderror" required>
@@ -230,7 +179,8 @@
               <div class="form-group col-md-3">
                 <label>Umur</label>
                 <input type="number" name="umur" id="umur" class="form-control"
-                  value="{{ isset($data->umur) ? $data->umur : old('umur') }}">
+                  value="{{ isset($data->tanggal_lahir) ? \Carbon\Carbon::parse($data->tanggal_lahir)->age : old('umur') }}"
+                  readonly>
                 @error('umur')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -241,9 +191,8 @@
               <div class="form-group col-md-7">
                 <label>Alamat</label>
                 <textarea name="alamat" id="" cols="30" rows="0"
-                  class="form-control  @error('alamat') is-invalid @enderror" style="height:135px !important" required>
-                                                                                                                                                                                                                                                                                                                                  {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
-                                                                                                                                                                                                                                                                                                                              </textarea>
+                  class="form-control  @error('alamat') is-invalid @enderror" style="height:135px !important"
+                  required>{{ isset($data->alamat) ? $data->alamat : @old('alamat') }}</textarea>
                 @error('alamat')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -465,10 +414,19 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
   </script>
   <script type="text/javascript">
-    var url = {{ Request::segment(3) }}
+    var url = "{{ Request::segment(3) }}";
     if (url != 'create') {
       hide();
     }
+
+    function calcAge(dateString) {
+      var birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / (31557600000));
+    }
+
+    $("#tanggal_lahir").change(function() {
+      $("#umur").val(calcAge($(this).val()))
+    });
 
     function hide() {
       $("#form input").prop("disabled", true);

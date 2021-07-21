@@ -6,6 +6,7 @@ use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Illuminate\Support\Carbon;
 use Str;
 
 class PendudukController extends Controller
@@ -18,7 +19,7 @@ class PendudukController extends Controller
             'nama' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
-            'umur' => 'required',
+            'tempat_lahir' => 'required',
             'kategori_penduduk' => 'required',
             'alamat' => 'required',
             'kelurahan' => 'required',
@@ -75,7 +76,7 @@ class PendudukController extends Controller
                 $data['ktp'] ='../default.jpg';
             }
             $data['golongan_darah'] =  strtoupper($request->golongan_darah);
-            $data['password'] = Hash::make($request->nik.strtolower(str_replace(' ', '', $request->tempat_lahir)));
+            $data['password'] = Hash::make(strtolower(str_replace(' ', '', $request->tempat_lahir)).Carbon::parse($request->tanggal_lahir)->format('dmY'));
             Penduduk::create($data);
             return redirect()->route('admin.penduduk.index')->withSuccess('Penduduk ' . $request['nama'] . ' telah ditambahkan');
         } catch (Exception $e) {

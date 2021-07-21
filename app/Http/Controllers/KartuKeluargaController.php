@@ -186,11 +186,11 @@ class KartuKeluargaController extends Controller
         }
 
         if($req->umur_awal){
-            $data->where('umur','>=',$req->umur_awal);
+            $data->where(DB::raw('TIMESTAMPDIFF(YEAR,tanggal_lahir,CURDATE())'),'>=', $req->umur_awal);
         }
 
         if($req->umur_akhir){
-            $data->where('umur','<=',$req->umur_akhir);
+            $data->where(DB::raw('TIMESTAMPDIFF(YEAR,tanggal_lahir,CURDATE())'),'<=',$req->umur_akhir);
         }
 
         return response()->json(array('code' => 200,'jumlah' => $data->count()));

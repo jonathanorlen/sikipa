@@ -26,12 +26,11 @@ class LoginController extends Controller
         $data = $this->validate($request,$this->rules());
         $penduduk = DB::table('penduduk')
             ->where('email', $data['email'])
+            ->orWhere('nik', $data['email'])
             ->first();
-            
         if($penduduk && Hash::check($data['password'], $penduduk->password))
         {
             $request->session()->put('penduduk', $penduduk);
- 
             return redirect()->route('user.dashboard');
         } else {
             return redirect()->route('login')->withError("Email atau Password Salah");

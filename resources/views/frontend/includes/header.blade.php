@@ -1,14 +1,14 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top header-inner-pages">
-     <div class="container d-flex align-items-center">
- 
-       <h1 class="logo me-auto"><a href="{{url('/')}}">SIKIPA</a></h1>
-       <!-- Uncomment below if you prefer to use an image logo -->
-       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
- 
-       <nav id="navbar" class="navbar">
-         <ul>
-           {{-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="{{ url('/') }}">SIKIPA</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          {{-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
            <li><a class="nav-link scrollto" href="#about">About</a></li>
            <li><a class="nav-link scrollto" href="#services">Services</a></li>
            <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
@@ -30,16 +30,16 @@
                <li><a href="#">Drop Down 4</a></li>
              </ul>
            </li> --}}
-           @if (session()->has('penduduk'))
-           <li><a class="nav-link scrollto" href="#contact">Panel</a></li>
-           <li><a class="getstarted scrollto" href="{{route('user.logout')}}">Logout</a></li>
-           @else
-            <li><a class="nav-link scrollto" href="{{route('login')}}">Login</a></li>
-            <li><a class="getstarted scrollto" href="{{route('register')}}">Register</a></li>
-           @endif
-         </ul>
-         <i class="bi bi-list mobile-nav-toggle"></i>
-       </nav><!-- .navbar -->
- 
-     </div>
-   </header><!-- End Header -->
+          @if (session()->has('penduduk'))
+            <li><a class="nav-link scrollto" href="#contact">Panel</a></li>
+            <li><a class="getstarted scrollto" href="{{ route('user.logout') }}">Logout</a></li>
+          @else
+            <li><a class="getstarted scrollto" href="{{ route('login') }}">Login</a></li>
+            {{-- <li><a class="getstarted scrollto" href="{{route('register')}}">Register</a></li> --}}
+          @endif
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->

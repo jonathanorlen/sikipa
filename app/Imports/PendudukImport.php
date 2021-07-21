@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
-
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -28,6 +28,16 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
             'nik' => 'unique:penduduk,nik',
             'rt' => 'required',
             'rw' => 'required',
+            'alamat' => 'required',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'kelurahan' => 'required',
+            'status_keluarga' => 'required',
+            'status_perkawinan' => 'required',
+            'kewarganegaraan' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Budha,Konghucu'
         ];
@@ -54,7 +64,6 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
         KartuKeluarga::firstOrCreate([
             'nomor_kk' => $row['nomor_kk']
         ]);
-                
         return new Penduduk([
             'nik' => $row['nik'],
             'nama' => $row['nama_lengkap'],
@@ -76,6 +85,7 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
             'kewarganegaraan' => $row['kewarganegaraan'],
             'ayah' => $row['nama_ayah'],
             'ibu' => $row['nama_ibu'],
+            'password' => Hash::make(strtolower(str_replace(' ', '', $row['tempat_lahir'])).Carbon::parse($tanggal_lahir)->format('dmY')),
             'kategori_penduduk' => $row['kategori_penduduk'],
         ]);
     }

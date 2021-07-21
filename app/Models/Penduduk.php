@@ -23,6 +23,7 @@ class Penduduk extends Authenticatable implements MustVerifyEmail
         'ktp',
         'nama',
         'tanggal_lahir',
+        'tempat_lahir',
         'jenis_kelamin',
         'umur',
         'alamat',
