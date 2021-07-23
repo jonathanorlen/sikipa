@@ -273,14 +273,6 @@
         <form id="import-data" enctype="multipart/form-data">
           {{ csrf_field() }}
           <div class="modal-body p-3">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert-error">
-              <ul id="error" class="mb-0">
-
-              </ul>
-              {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button> --}}
-            </div>
             <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-success">
               <span id="error-import-message">Data Berhasil Di Upload
               </span>
@@ -299,6 +291,20 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Upload</button>
           </div>
+          <div class="alert alert-danger alert-dismissible fade show m-2" role="alert" id="alert-error" style="">
+            <ul id="error" class="mb-0">
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {{-- <div class="alert alert-error alert-dismissible fade" role="alert" id="alert-error">
+            <ul id="error">
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> --}}
         </form>
       </div>
     </div>

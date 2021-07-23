@@ -25,8 +25,9 @@ Route::middleware('is_admin')
 
           //Penduduk route with resource except no index and destroy
           Route::resource('penduduk', PendudukController::class)->except([
-               'index','destroy'
+               'index','destroy','update'
           ]);
+          Route::put('penduduk/update/{penduduk}', [PendudukController::class, 'update'])->name('penduduk.update');
           Route::get('penduduk/delete/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
           Route::get('penduduk/ganti-status/{penduduk}', [PendudukController::class, 'change_status'])->name('penduduk.ganti_status');
           Route::put('penduduk/ganti-status/{penduduk}/update', [PendudukController::class, 'save_status'])->name('penduduk.ganti_status_update');

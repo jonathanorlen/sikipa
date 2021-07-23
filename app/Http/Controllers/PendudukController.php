@@ -11,7 +11,7 @@ use Str;
 
 class PendudukController extends Controller
 {
-    protected function rules($id = false)
+    protected function rules($id = false, $email = false)
     {
         $rules =  [
             
@@ -33,7 +33,6 @@ class PendudukController extends Controller
             'status_keluarga' => 'required',
             'status_perkawinan' => 'required',
             'kewarganegaraan' => 'required',
-            'email' => 'nullable|email:rfc,dns|unique:penduduk,email',
             'ayah' => 'nullable',
             'ibu' => 'nullable',
             'ktp' =>  'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -41,6 +40,10 @@ class PendudukController extends Controller
 
         if($id == false){
             $rules['nik'] =  'required|unique:penduduk,nik';
+        }
+
+        if($email == false){
+            $rules['email'] = 'nullable|email:rfc,dns|unique:penduduk,email';
         }
         return $rules;
     }
@@ -88,6 +91,7 @@ class PendudukController extends Controller
     public function show(Penduduk $penduduk)
     {
         $data['data'] = $penduduk;
+
         $data['kelurahan'] = DB::select('select * from kelurahan');
         $data['rt'] = DB::select('select * from rt');
         $data['rw'] = DB::select('select * from rw');
@@ -102,7 +106,7 @@ class PendudukController extends Controller
     public function edit(Penduduk $penduduk)
     {
         $data['item'] = $penduduk;
-        $data['edi'] = true;
+        $data['edit'] = true;
         return view('backend.pages.penduduk-form', $data);
     }
 
@@ -115,7 +119,13 @@ class PendudukController extends Controller
             $id = false;
         }
 
-        $data = $this->validate($request, $this->rules($id));
+        if($penduduk->email == $request->email){
+            $email = true;
+        }else{
+            $email = false;
+        }
+
+        $data = $this->validate($request, $this->rules($id,$email));
         try {
             if ($request->hasfile('ktp')) {
                 $data['ktp'] = $this->upload_image($request->file('ktp'), $penduduk->ktp);

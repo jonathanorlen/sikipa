@@ -55,13 +55,15 @@
               </div>
               <div class="col-md-6">
                 @if (isset($data->foto))
-                  <div class="form-group col-md-4" id="lihat-foto">
-                    <label>Lihat Foto</label>
-                    <br>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                      Lihat Foto
-                    </button>
-                  </div>
+                  @if ($data->foto != 'image.jpg')
+                    <div class="form-group col-md-4" id="lihat-foto">
+                      <label>Lihat Foto</label>
+                      <br>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Lihat Foto
+                      </button>
+                    </div>
+                  @endif
                 @endif
               </div>
             </div>
@@ -91,7 +93,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <img src="{{ url('images/kartu_keluarga') . '/' . $data->foto }}" alt="" width="100%">
+          @if (isset($data->foto))
+            <img src="{{ url('images/kartu_keluarga') . '/' . $data->foto }}" alt="" width="100%">
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

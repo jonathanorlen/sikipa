@@ -34,6 +34,10 @@
   </style>
 @endpush
 @section('content')
+  {{-- @if ($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+  @endif --}}
+
   <div class="section-body">
     <div class="row">
       @if (isset($edit))
@@ -65,7 +69,7 @@
             method="POST" enctype="multipart/form-data" id="form">
             @csrf
             @if (isset($edit))
-              @method('PUT')
+              <input type="hidden" name="_method" value="PUT">
             @endif
             <div class="card-body row pb-0">
               <div class="form-group col-md-4">
@@ -313,13 +317,65 @@
                     {{ (isset($edit) ? ($data->kewarganegaraan == 'WNI' ? 'selected' : null) : 'WNI' == @old('kewarganegaraa')) ? 'selected' : null }}>
                     WNI</option>
                   <option value="WNA"
-                    {{ (isset($edit) ? ($data->kewarganegaraa == 'WNA' ? 'selected' : null) : 'WNA' == @old('kewarganegaraa')) ? 'selected' : null }}>
+                    {{ (isset($edit) ? ($data->kewarganegaraan == 'WNA' ? 'selected' : null) : 'WNA' == @old('kewarganegaraa')) ? 'selected' : null }}>
                     WNA</option>
                 </select>
                 @error('kewarganegaraan')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
               </div>
+              <div class="form-group col-md-4">
+                <label>Pendidikan</label>
+                <select name="pendidikan" id="pendidikan" class="form-control @error('pendidikan')is-invalid @enderror"
+                  required>
+                  <option value="" hidden>Pilih Pendidikan</option>
+                  <option value="Tidak/Belum Sekolah"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Tidak/Belum Sekolah' ? 'selected' : null) : @old('pendidikan') == 'Tidak/Belum Sekolah') ? 'selected' : null }}>
+                    Tidak/Belum Sekolah</option>
+                  <option value="Belum Tamat SD/Sederajat"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Belum Tamat SD/Derajat' ? 'selected' : null) : @old('pendidikan') == 'Belum Tamat SD/Derajat') ? 'selected' : null }}>
+                    Belum Tamat SD/Sederajat</option>
+                  <option value="SLTP/Sederajat"
+                    {{ (isset($edit) ? ($data->pendidikan == 'SLTP/Sederajat' ? 'selected' : null) : @old('pendidikan') == 'SLTP/Sederajat') ? 'selected' : null }}>
+                    SLTP/Sederajat</option>
+                  <option value="SLTA/Sederajat"
+                    {{ (isset($edit) ? ($data->pendidikan == 'SLTA/Sederajat' ? 'selected' : null) : @old('pendidikan') == 'SLTA/Sederajat') ? 'selected' : null }}>
+                    SLTA/Sederajat</option>
+                  <option value="Akademi/Diploma III/Sarjana Muda"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Akademi/Diploma III/Sarjana Muda' ? 'selected' : null) : @old('pendidikan') == 'Akademi/Diploma III/Sarjana Muda') ? 'selected' : null }}>
+                    Akademi/Diploma III/Sarjana Muda</option>
+                  <option value="Diploma IV/ Strata I"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Diploma IV/ Strata I' ? 'selected' : null) : @old('pendidikan') == 'Diploma IV/ Strata I') ? 'selected' : null }}>
+                    Diploma IV/ Strata I</option>
+                  <option value="Strata II"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Strata II' ? 'selected' : null) : @old('pendidikan') == 'Strata II') ? 'selected' : null }}>
+                    Strata II</option>
+                  <option value="Strata III"
+                    {{ (isset($edit) ? ($data->pendidikan == 'Strata III' ? 'selected' : null) : @old('pendidikan') == 'Strata III') ? 'selected' : null }}>
+                    Strata III</option>
+                </select>
+                @error('pendidikan')
+                  <small class="text-danger">{{ $message }}</small>
+                @enderror
+              </div>
+              <div class="form-group col-md-4">
+                <label>Pekerjaan</label>
+                <select name="pekerjaan" id="pekerjaan" class="form-control @error('pekerjaan')is-invalid @enderror"
+                  required>
+                  <option value="" hidden>Pilih Pekerjaan</option>
+                  @foreach ($pekerjaan as $item)
+                    <option value="{{ $item->nama }}"
+                      {{ (isset($edit) ? ($item->nama == $data->pekerjaan ? 'selected' : null) : $item->nama == @old('pekerjaan')) ? 'selected' : null }}>
+                      {{ $item->nama }}
+                    </option>
+                  @endforeach
+                </select>
+                @error('pekerjaan')
+                  <small class="text-danger">{{ $message }}</small>
+                @enderror
+              </div>
+
+              <div class="col-md-12"></div>
               <div class="section-title">Orang Tua</div>
               <div class="col-md-12"></div>
               <div class="form-group col-md-6">
@@ -378,8 +434,11 @@
                 @enderror
               </div>
             </div>
-            <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="card-footer">
+              <button type="reset" class="btn btn-outline-light">Reset</button>
+              <button type="submit" class="btn btn-primary float-right">Submit</button>
+              <a href="{{ route('admin.penduduk.index') }}"
+                class="btn d-block d-md-inline-block btn-light mr-2 float-right">Cancel</a>
             </div>
           </form>
         </div>

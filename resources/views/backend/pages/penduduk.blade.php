@@ -106,8 +106,7 @@
                   @foreach ($items as $key => $item)
                     <tr>
                       <td class="
-                                                                                      @if ($item->
-                        dokumen_ktp == '' ||
+                                                                                          @if ($item->dokumen_ktp == '' ||
                         $item->dokumen_ktp ==
                         'Belum
                         Lengkap') border-left border-warning @endif
@@ -117,14 +116,15 @@
                       <td>{{ $item->rt }}</td>
                       <td>{{ $item->rw }}</td>
                       <td>
-                        <a href="{{ route('admin.penduduk.show', $item->nik) }}" class="btn btn-info"><i
-                            class="fa fa-eye"></i></a>
-                        <a href="{{ route('admin.penduduk.ganti_status', $item->nik) }}" class="btn btn-info">
+                        <a href="{{ route('admin.penduduk.show', $item->nik) }}" class="btn btn-info"
+                          data-toggle="tooltip" title="Detail Data Penduduk"><i class="fa fa-eye"></i></a>
+                        <a href="{{ route('admin.penduduk.ganti_status', $item->nik) }}" class="btn btn-info"
+                          data-toggle="tooltip" title="Status Data Penduduk">
                           <i class="fas fa-toggle-on"></i>
                         </a>
                         <button data-confirm="Hapus Data|Apakah anda yakin akan menghapus data {{ $item->nama }} ?"
                           data-confirm-yes="window.location ='{{ route('admin.penduduk.destroy', $item->nik) }}'"
-                          class="btn btn-icon btn-danger" data-toggle="tooltip" title="Change Event Status"><i
+                          class="btn btn-icon btn-danger" data-toggle="tooltip" title="Hapus Data Penduduk"><i
                             class="fa fa-trash"></i>
                         </button>
                       </td>

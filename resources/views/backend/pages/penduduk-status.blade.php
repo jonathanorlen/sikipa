@@ -58,7 +58,7 @@
                 <label>Catatan</label>
                 <textarea name="catatan" class="form-control" id="" cols="30" rows="30">
 
-                                                      </textarea>
+                                                              </textarea>
                 @error('nik')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
