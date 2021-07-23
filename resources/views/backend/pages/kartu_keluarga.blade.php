@@ -281,7 +281,7 @@
               </button>
             </div>
             <div class="form-group">
-              <label for="">Download Data Excel</label>
+              <label for="">Upload Data Excel</label>
               <input type="file" name="file" id="file" class="form-control">
               <div id="success"></div>
             </div>
@@ -291,20 +291,13 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Upload</button>
           </div>
-          <div class="alert alert-danger alert-dismissible fade show m-2" role="alert" id="alert-error" style="">
+          <div class="alert alert-danger alert-dismissible fade show m-2" id="alert-error" style="">
             <ul id="error" class="mb-0">
             </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {{-- <div class="alert alert-error alert-dismissible fade" role="alert" id="alert-error">
-            <ul id="error">
-            </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div> --}}
         </form>
       </div>
     </div>
@@ -318,6 +311,11 @@
         "sortable": false,
         "targets": [2]
       }]
+    });
+
+    $(".alert").on("close.bs.alert", function() {
+      $(".alert").hide();
+      return false;
     });
 
     function get_view(e) {
@@ -447,18 +445,19 @@
           // },
           success: function(response) {
             if (response.code == 200) {
+              document.getElementById("file").value = "";
               $("#alert-error").hide();
               $("#alert-success").show();
               window.setTimeout('refresh()', 3000);
             } else {
+              document.getElementById("file").value = "";
               $("#alert-error").show();
               $("#alert-success").hide();
-              let ul = document.getElementById("error");
-              ul.innerHTML = "";
+              $("#error").empty();
               response.message.forEach(data => {
                 let list = document.createElement("li");
                 list.innerHTML = "Baris ke " + data.row + " " + data.errors[0];
-                ul.appendChild(list);
+                document.getElementById("error").appendChild(list);
               });
             }
           },

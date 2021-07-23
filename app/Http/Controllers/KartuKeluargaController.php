@@ -224,8 +224,10 @@ class KartuKeluargaController extends Controller
         $file->move('excel',$nama_file);
         try{
             Excel::import(new PendudukImport, public_path('/excel/'.$nama_file));
+            unlink(public_path('/excel/'.$nama_file));
         }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
+            unlink(public_path('/excel/'.$nama_file));
             return response()->json(['code' => '500', 'message' => $failures]);
         }
         

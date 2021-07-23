@@ -51,9 +51,14 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
             'nik.unique' => 'NIK Telah dipakai',
             'rt.required' => 'Wajib Menyertakan Nomor RT',
             'rw.required' => 'Wajib Menyertakan Nomor RT',
+            'agama.required' => 'Wajib Menyertakan Agama',
+            'nama.required' => 'Wajib Menyertakan Nama',
+            'alamat.required' => 'Wajib Menyertakan Alamat',
+            'status_keluarga.required' => 'Wajib Menyertakan Status Keluarga',
+            'pekerjaan.required' => 'Wajib Menyertakan Pekerjaan',
+            'tempat_lahir.required' => 'Wajib Menyertakan Tempat Lahir',
             'jenis_kelamin.required' => 'Wajib Menyertakan Jenis Kelamin',
             'jenis_kelamin.in' => 'Tidak dalam Pilihan: Laki-Laki/Perempuan',
-            'agama.required' => 'Wajib Menyertakan Agama',
             'agama.in' => 'Tidak dalam Pilihan:Islam,Kristen,Katolik,Hindu,Budha,Konghucu',
         ];
     }
