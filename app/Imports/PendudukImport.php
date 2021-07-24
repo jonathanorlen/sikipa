@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Illuminate\Support\Facades\Hash;
+
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -16,11 +16,12 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Validators\Failure;
 use Illuminate\Support\Carbon;
+use Hash;
 
-class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError
+class PendudukImport implements ToModel, WithHeadingRow, WithValidation
 {
 
-    use SkipsErrors, SkipsFailures;
+    // use SkipsErrors, SkipsFailures;
 
     public function rules(): array
     {
@@ -28,37 +29,29 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
             'nik' => 'unique:penduduk,nik',
             'rt' => 'required',
             'rw' => 'required',
-            'alamat' => 'required',
-            'nama' => 'required',
+            'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
+            'agama' => 'required',
+            'alamat_lengkap' => 'required',
             'kelurahan' => 'required',
-            'status_keluarga' => 'required',
-            'status_perkawinan' => 'required',
-            'kewarganegaraan' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
             'pendidikan' => 'required',
-            'pekerjaan' => 'required',
-            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Budha,Konghucu'
+            'jenis_pekerjaan' => 'required',
+            // 'status_keluarga' => 'required',
+            'status_perkawinan' => 'required',
         ];
     }
 
     public function customValidationMessages()
     {
         return [
-            'required' => 'Data pada baris ke',
-            'in' => 'Data pada baris ke',
             'nik.unique' => 'NIK Telah dipakai',
             'rt.required' => 'Wajib Menyertakan Nomor RT',
             'rw.required' => 'Wajib Menyertakan Nomor RT',
-            'agama.required' => 'Wajib Menyertakan Agama',
-            'nama.required' => 'Wajib Menyertakan Nama',
-            'alamat.required' => 'Wajib Menyertakan Alamat',
-            'status_keluarga.required' => 'Wajib Menyertakan Status Keluarga',
-            'pekerjaan.required' => 'Wajib Menyertakan Pekerjaan',
-            'tempat_lahir.required' => 'Wajib Menyertakan Tempat Lahir',
             'jenis_kelamin.required' => 'Wajib Menyertakan Jenis Kelamin',
             'jenis_kelamin.in' => 'Tidak dalam Pilihan: Laki-Laki/Perempuan',
+            'agama.required' => 'Wajib Menyertakan Agama',
             'agama.in' => 'Tidak dalam Pilihan:Islam,Kristen,Katolik,Hindu,Budha,Konghucu',
         ];
     }
@@ -71,22 +64,21 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
         ]);
         return new Penduduk([
             'nik' => $row['nik'],
-            'nama' => $row['nama_lengkap'],
+            'nama' => ucfirst(strtolower($row['nama_lengkap'])),
             'nomor_kk' => $row['nomor_kk'],
             'tanggal_lahir' => $tanggal_lahir,
             'tempat_lahir' => $row['tempat_lahir'],
-            'jenis_kelamin' => $row['jenis_kelamin'],
-            'umur' => Carbon::parse($tanggal_lahir)->age,
+            'jenis_kelamin' => ucfirst(strtolower($row['jenis_kelamin'])),
             'alamat' => $row['alamat_lengkap'],
-            'kelurahan' => $row['kelurahan'],
+            'kelurahan' => ucfirst(strtolower($row['kelurahan'])),
             'rt' => $row['rt'],
             'rw' => $row['rw'],
-            'agama' => $row['agama'],
-            'pendidikan' => $row['pendidikan'],
-            'pekerjaan' => $row['jenis_pekerjaan'],
+            'agama' => ucfirst(strtolower($row['agama'])),
+            'pendidikan' => ucfirst(strtolower($row['pendidikan'])),
+            'pekerjaan' => ucfirst(strtolower($row['jenis_pekerjaan'])),
             'golongan_darah' => $row['golongan_darah'],
-            'status_keluarga' => $row['status_pada_keluarga'],
-            'status_perkawinan' => $row['status_perkawinan'],
+            'status_keluarga' => ucfirst(strtolower($row['status_pada_keluarga'])),
+            'status_perkawinan' => ucfirst(strtolower($row['status_perkawinan'])),
             'kewarganegaraan' => $row['kewarganegaraan'],
             'ayah' => $row['nama_ayah'],
             'ibu' => $row['nama_ibu'],
@@ -95,10 +87,6 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
         ]);
     }
 
-    public function batchSize(): int
-    {
-        return 500;
-    }
 
     public function transformDate($value, $format = 'Y-m-d')
     {
@@ -111,5 +99,10 @@ class PendudukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithV
 
     public function onFailure(Failure ...$failure)
     {
+    }
+
+    public function uniqueBy()
+    {
+        return 'nik';
     }
 }

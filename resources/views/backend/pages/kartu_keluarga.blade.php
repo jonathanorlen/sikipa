@@ -86,12 +86,12 @@
                       <td><span class="badge badge-pill badge-dark">{{ $item->anggotKeluarga->count() }} Anggota </span>
                       </td>
                       <td>
-                        <a href="{{ route('admin.kartu-keluarga.edit', $item->id) }}" class="btn btn-info"><i
-                            class="fa fa-pencil-alt"></i>
+                        <a href="{{ route('admin.kartu-keluarga.edit', $item->id) }}" class="btn btn-info"
+                          data-toggle="tooltip" title="Edit Kartu Keluarga"><i class="fa fa-pencil-alt"></i>
                         </a>
                         @if ($item->anggotKeluarga->count() != 0)
-                          <a href="{{ route('admin.kartu-keluarga.list', $item->nomor_kk) }}" class="btn btn-info"><i
-                              class="fa fa-users"></i>
+                          <a href="{{ route('admin.kartu-keluarga.list', $item->nomor_kk) }}" class="btn btn-info"
+                            data-toggle="tooltip" title="Daftar Anggota Keluarga"><i class="fa fa-users"></i>
                           </a>
                         @endif
                       </td>
@@ -302,6 +302,7 @@
       </div>
     </div>
   </div>
+  <div class="loading" style="display:none">Loading&#8230;</div>
   <script src="{{ url('assets/modules/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') }}"></script>
   <script src="{{ url('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ url('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
@@ -417,7 +418,6 @@
 
     $('#import-data').on('submit', function(e) {
       e.preventDefault();
-      console.log($('#file').val());
       if ($('#file').val() == '') {
         $("#alert-error").show();
         let ul = document.getElementById("error");
@@ -427,6 +427,7 @@
         ul.appendChild(list);
         return true;
       } else {
+        $(".loading").show();
         e.preventDefault();
         var file_data = $('#file').prop('files')[0];
         var token = $('input[name="_token"]').val();
@@ -444,12 +445,14 @@
           //   $("#progress").show();
           // },
           success: function(response) {
+            $(".loading").hide();
             if (response.code == 200) {
               document.getElementById("file").value = "";
               $("#alert-error").hide();
               $("#alert-success").show();
               window.setTimeout('refresh()', 3000);
             } else {
+              $(".loading").hide();
               document.getElementById("file").value = "";
               $("#alert-error").show();
               $("#alert-success").hide();
@@ -462,8 +465,9 @@
             }
           },
           error: function(response) {
-            console.log('error');
-            console.log(response);
+            // console.log('error');
+            // console.log(response);
+            $(".loading").hide();
           },
         });
       }

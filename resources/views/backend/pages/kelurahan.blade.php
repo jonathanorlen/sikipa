@@ -105,16 +105,16 @@
                       <td>{{ $item->kelurahan }}</td>
                       <td>{{ $item->kode_pos }}</td>
                       <td>
-                        <a href="{{ route('admin.rw', strtolower($item->kelurahan)) }}" class="btn btn-success"><i
-                            class="fa fa-eye"></i></a>
-                        <a href="{{ route('admin.kelurahan.edit', $item->id) }}" class="btn btn-info"><i
-                            class="fa fa-pencil-alt"></i></a>
+                        <a href="{{ route('admin.rw', strtolower($item->kelurahan)) }}" class="btn btn-success"
+                          data-toggle="tooltip" title="lihat Daftar RW"><i class="fa fa-eye"></i></a>
+                        <a href="{{ route('admin.kelurahan.edit', $item->id) }}" class="btn btn-info"
+                          data-toggle="tooltip" title="Edit Data Kelurahan"><i class="fa fa-pencil-alt"></i></a>
                         <form action="{{ route('admin.kelurahan.destroy', $item->id) }}" method="post"
                           class="d-inline">
                           @csrf
                           @method('delete')
-                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure?')"><i
-                              class="fa fa-trash"></i></button>
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure?')"
+                            data-toggle="tooltip" title="Hapus Data Kelurahan"><i class="fa fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>

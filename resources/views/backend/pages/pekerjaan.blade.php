@@ -42,12 +42,13 @@
                       <td>{{ $key + 1 }}</td>
                       <td>{{ $item->nama }}</td>
                       <td>
-                        <a href="{{ route('admin.pekerjaan.edit', $item->id) }}" class="btn btn-info">
+                        <a href="{{ route('admin.pekerjaan.edit', $item->id) }}" class="btn btn-info"
+                          data-toggle="tooltip" title="Edit Pekerjaan">
                           <i class="fa fa-pencil-alt"></i>
                         </a>
                         <button data-confirm="Hapus Data|Apakah anda yakin akan menghapus pekerjaan {{ $item->nama }} ?"
                           data-confirm-yes="window.location ='{{ route('admin.pekerjaan.destroy', $item->id) }}'"
-                          class="btn btn-icon btn-danger" data-toggle="tooltip" title="Change Event Status"><i
+                          class="btn btn-icon btn-danger" data-toggle="tooltip" title="Hapus Data Pekerjaan"><i
                             class="fa fa-trash"></i>
                         </button>
                       </td>

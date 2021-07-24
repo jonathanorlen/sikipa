@@ -72,13 +72,13 @@
                       <td>{{ $item->name }}</td>
                       <td>{{ $item->email }}</td>
                       <td>
-                        <a href="{{ route('admin.user.edit', $item->id) }}" class="btn btn-info"><i
-                            class="fa fa-pencil-alt"></i></a>
+                        <a href="{{ route('admin.user.edit', $item->id) }}" class="btn btn-info" data-toggle="tooltip"
+                          title="Edit User"><i class="fa fa-pencil-alt"></i></a>
                         <form action="{{ route('admin.user.destroy', $item->id) }}" method="post" class="d-inline">
                           @csrf
                           @method('delete')
-                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure?')"><i
-                              class="fa fa-trash"></i></button>
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure?')"
+                            data-toggle="tooltip" title="Hapus User"><i class="fa fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>
