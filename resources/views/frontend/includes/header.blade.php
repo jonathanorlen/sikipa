@@ -31,7 +31,7 @@
              </ul>
            </li> --}}
           @if (session()->has('penduduk'))
-            <li><a class="nav-link scrollto" href="#contact">Panel</a></li>
+            <li><a class="nav-link scrollto" href="{{ route('user.dashboard') }}">Panel</a></li>
             <li><a class="getstarted scrollto" href="{{ route('user.logout') }}">Logout</a></li>
           @else
             <li><a class="getstarted scrollto" href="{{ route('login') }}">Login</a></li>

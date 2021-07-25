@@ -11,9 +11,6 @@ use App\Http\Controllers\KartuKeluargaController;
 
 Route::get('login', [LoginController::class, 'index'])->name('admin.login');
 Route::post('authenticate', [LoginController::class, 'authenticate'])->name('admin.authenticate');
-          
-Route::get('rw', [KelurahanController::class, 'rw'])->name('admin.getrw');
-Route::get('rt', [KelurahanController::class, 'rt'])->name('admin.getrt');
 
 Route::middleware('is_admin')
      ->name('admin.')

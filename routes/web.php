@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\MainController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
+use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\Frontend\Auth\LoginController as FrontendLogin;
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ Route::get('/login', [MainController::class, 'login'])->name('login');
 Route::post('/login-authenticate', [FrontendLogin::class, 'authenticate'])->name('login-authenticate');
 Route::get('/register', [MainController::class, 'register'])->name('register');
 Route::post('/register-store', [RegisterController::class, 'create'])->name('register-create');
+          
+Route::get('rw', [KelurahanController::class, 'rw'])->name('admin.getrw');
+Route::get('rt', [KelurahanController::class, 'rt'])->name('admin.getrt');
 
 Route::prefix('user')
      ->name('user.')
