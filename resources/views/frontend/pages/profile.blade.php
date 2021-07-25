@@ -17,7 +17,7 @@
     </div>
   @endif
   <form action="{{ route('user.profile-update', $data->nik) }}" method="POST" enctype="multipart/form-data" id="form">
-    @csrf
+    {{ csrf_field() }}
     <div class="card-body row pb-0">
       <div class="mb-4 col-md-4">
         <label class="form-label">Nama</label>
@@ -178,7 +178,8 @@
       <div class="mb-4 col-md-3">
         <label class="form-label">Umur</label>
         <input type="number" name="umur" id="umur" class="form-control"
-          value="{{ isset($data->umur) ? $data->umur : old('umur') }}">
+          value="{{ isset($data->tanggal_lahir) ? \Carbon\Carbon::parse($data->tanggal_lahir)->age : old('umur') }}"
+          readonly>
         @error('umur')
           <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -310,7 +311,7 @@
             {{ (isset($edit) ? ($data->kewarganegaraan == 'WNI' ? 'selected' : null) : 'WNI' == @old('kewarganegaraa')) ? 'selected' : null }}>
             WNI</option>
           <option value="WNA"
-            {{ (isset($edit) ? ($data->kewarganegaraa == 'WNA' ? 'selected' : null) : 'WNA' == @old('kewarganegaraa')) ? 'selected' : null }}>
+            {{ (isset($edit) ? ($data->kewarganegaraan == 'WNA' ? 'selected' : null) : 'WNA' == @old('kewarganegaraa')) ? 'selected' : null }}>
             WNA</option>
         </select>
         @error('kewarganegaraan')
@@ -336,7 +337,7 @@
       </div>
     </div>
     <div class="card-footer text-right align-right">
-      <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+      <button type="submit" class="btn btn-primary ml-auto">Simpan</button>
     </div>
   </form>
   </section>
@@ -351,6 +352,15 @@
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
   <script type="text/javascript">
+    function calcAge(dateString) {
+      var birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / (31557600000));
+    }
+
+    $("#tanggal_lahir").change(function() {
+      $("#umur").val(calcAge($(this).val()))
+    });
+
     var url = {{ Request::segment(3) }}
     $(document).ready(function() {
       $(".js-example-basic-multiple").select2({
@@ -358,5 +368,100 @@
         placeholder: "Pilih Nomor Kartu Keluarga",
       });
     });
+
+    $(document).ready(function() {
+      $(".js-example-basic-multiple").select2({
+        placeholder: "Pilih Nomor Kartu Keluarga",
+      });
+
+      $(document).on('change', '#kelurahan', function() {
+        let nomor = $(this).attr('key');
+        let val = $('option:selected', this).attr('key');
+        $.ajax({
+          url: '{{ route('admin.getrw') }}',
+          data: {
+            id: val
+          },
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function() {
+
+          },
+          success: function(res) {
+            var select = $('#rw > option').length;
+            if (select > 1) {
+              $('#rw').empty()
+            }
+            $('#rt').empty()
+            $('#rw').empty()
+
+            var select = document.getElementById("rw");
+
+            var choose = document.createElement("option");
+            choose.text = 'Pilih RW';
+            choose.disabled = "disabled";
+            choose.selected = "selected";
+            choose.hidden = "hidden";
+
+            select.appendChild(choose);
+
+            for (i = 0; i < res.length; i++) {
+              var option = document.createElement("option");
+              option.text = res[i].nomor_rw;
+              option.value = res[i].nomor_rw;
+              option.setAttribute('key', res[i].id);
+              select.appendChild(option);
+            }
+          },
+          error: function() {
+            alert('Not Valid');
+          }
+        })
+      })
+
+      $(document).on('change', '#rw', function() {
+        let nomor = $(this).attr('key');
+        let val = $('option:selected', this).attr('key');
+        console.log(val);
+        $.ajax({
+          url: '{{ route('admin.getrt') }}',
+          data: {
+            id: val
+          },
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function() {
+
+          },
+          success: function(res) {
+            var select = $('#rt > option').length;
+            if (select > 1) {
+              $('#rt').empty()
+            }
+
+            var select = document.getElementById("rt");
+
+            var choose = document.createElement("option");
+            choose.text = 'Pilih RT';
+            choose.disabled = "disabled";
+            choose.selected = "selected";
+            choose.hidden = "hidden";
+
+            select.appendChild(choose);
+
+            for (i = 0; i < res.length; i++) {
+              var option = document.createElement("option");
+              option.text = res[i].nomor_rt;
+              option.value = res[i].nomor_rt;
+              option.setAttribute('key', res[i]);
+              select.appendChild(option);
+            }
+          },
+          error: function() {
+            alert('Not Valid');
+          }
+        })
+      })
+    })
   </script>
 @endpush

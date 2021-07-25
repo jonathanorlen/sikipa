@@ -63,7 +63,7 @@ class MainController extends Controller
     }
 
     public function profile(Request $request){
-        $data['data'] = Penduduk::get()->where('id',$request->session()->get('id'))->first();
+        $data['data'] = Penduduk::get()->where('nik',$request->session()->get('penduduk')->nik)->first();
         $data['kelurahan'] = DB::select('select * from kelurahan');
         $data['rt'] = DB::select('select * from rt');
         $data['rw'] = DB::select('select * from rw');
