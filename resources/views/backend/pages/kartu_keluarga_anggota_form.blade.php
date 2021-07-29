@@ -1,10 +1,10 @@
 @extends('backend.layouts.app')
 @section('title', 'Dashboard')
 @section('header')
-    Data Penduduk
+  Data Penduduk
 @endsection
 @section('breadcrumb')
-    {{ Breadcrumbs::render('kartu_keluarga.detail', $data) }}
+  {{ Breadcrumbs::render('kartu_keluarga.detail', $data) }}
 @endsection
 @push('styles')
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -70,9 +70,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label>Nomor KK</label>
-                <select class="form-control @error('nomor_kk')is-invalid @enderror"
-                  name="nomor_kk" required>
-                  <option value="" hidden>{{$data->nomor_kk}}</option>
+                <select class="form-control @error('nomor_kk')is-invalid @enderror" name="nomor_kk" required>
+                  <option value="" hidden>{{ $data->nomor_kk }}</option>
                 </select>
                 @error('nomor_kk')
                   <small class="text-danger">{{ $message }}</small>
@@ -150,7 +149,7 @@
                 <label>Pekerjaan</label>
                 <select name="pekerjaan" id="pekerjaan" class="form-control @error('pekerjaan')is-invalid @enderror"
                   required>
-                  <option value="" hidden>{{$data->pekerjaan}}</option>
+                  <option value="" hidden>{{ $data->pekerjaan }}</option>
                 </select>
                 @error('pekerjaan')
                   <small class="text-danger">{{ $message }}</small>
@@ -223,8 +222,8 @@
                 <label>Alamat</label>
                 <textarea name="alamat" id="" cols="30" rows="0"
                   class="form-control  @error('alamat') is-invalid @enderror" style="height:135px !important" required>
-                                                                                                                                                                            {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
-                                                                                                                                                                        </textarea>
+                                                                                                                                                                                  {{ isset($data->alamat) ? $data->alamat : @old('alamat') }}
+                                                                                                                                                                              </textarea>
                 @error('alamat')
                   <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -235,7 +234,7 @@
                     <label>Kelurahan</label>
                     <select name="kelurahan" id="kelurahan"
                       class="form-control kelurahan @error('kelurahan')is-invalid @enderror" required>
-                      <option value="" hidden>{{$data->kelurahan}}</option>
+                      <option value="" hidden>{{ $data->kelurahan }}</option>
                     </select>
                     @error('kelurahan')
                       <small class="text-danger">{{ $message }}</small>
@@ -244,7 +243,7 @@
                   <div class="form-group col-md-6">
                     <label>RW</label>
                     <select name="rw" id="rw" class="form-control rw @error('rw')is-invalid @enderror" required>
-                      <option value="" hidden>{{$data->rw}}</option>
+                      <option value="" hidden>{{ $data->rw }}</option>
                     </select>
                     @error('rw')
                       <small class="text-danger">{{ $message }}</small>
@@ -253,7 +252,7 @@
                   <div class="form-group col-md-6">
                     <label>RT</label>
                     <select name="rt" id="rt" class="form-control @error('rt')is-invalid @enderror" required>
-                      <option value="" hidden> {{$data->rt}}</option>
+                      <option value="" hidden> {{ $data->rt }}</option>
                     </select>
                     @error('rt')
                       <small class="text-danger">{{ $message }}</small>
@@ -368,6 +367,9 @@
                   <option value="Anak Kost"
                     {{ (isset($edit) ? ($data->kategori_penduduk == 'Anak Kost' ? 'selected' : null) : 'Anak Kost' == @old('kategori_penduduk')) ? 'selected' : null }}>
                     Anak Kost</option>
+                  <option value="Almarhum"
+                    {{ (isset($edit) ? ($data->kategori_penduduk == 'Almarhum' ? 'selected' : null) : 'Almarhum' == @old('kategori_penduduk')) ? 'selected' : null }}>
+                    Almarhum</option>
                 </select>
                 @error('kategori_penduduk')
                   <small class="text-danger">{{ $message }}</small>
@@ -395,11 +397,11 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js">
   </script>
   <script type="text/javascript">
-      $("#form input").prop("disabled", true);
-      $("#form select").prop("disabled", true);
-      $("#form textarea").prop("disabled", true);
-      $("#btn-close").hide();
-      $("#btn-edit").show();
-      $(".card-footer").hide()
+    $("#form input").prop("disabled", true);
+    $("#form select").prop("disabled", true);
+    $("#form textarea").prop("disabled", true);
+    $("#btn-close").hide();
+    $("#btn-edit").show();
+    $(".card-footer").hide()
   </script>
 @endpush

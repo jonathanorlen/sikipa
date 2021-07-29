@@ -412,6 +412,9 @@
                   <option value="Anak Kost"
                     {{ (isset($edit) ? ($data->kategori_penduduk == 'Anak Kost' ? 'selected' : null) : 'Anak Kost' == @old('kategori_penduduk')) ? 'selected' : null }}>
                     Anak Kost</option>
+                  <option value="Almarhum"
+                    {{ (isset($edit) ? ($data->kategori_penduduk == 'Almarhum' ? 'selected' : null) : 'Almarhum' == @old('kategori_penduduk')) ? 'selected' : null }}>
+                    Almarhum</option>
                 </select>
                 @error('kategori_penduduk')
                   <small class="text-danger">{{ $message }}</small>

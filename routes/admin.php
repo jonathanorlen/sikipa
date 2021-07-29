@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\KartuKeluargaController;
+use App\Models\KartuKeluarga;
 
 Route::get('login', [LoginController::class, 'index'])->name('admin.login');
 Route::post('authenticate', [LoginController::class, 'authenticate'])->name('admin.authenticate');
@@ -21,6 +22,10 @@ Route::middleware('is_admin')
           Route::resource('user', UserController::class)->except([
                'index'
           ]);
+          
+          Route::get('rw', [PendudukController::class, 'rw'])->name('getrw');
+          Route::get('rt', [PendudukController::class, 'rt'])->name('getrt');
+
           Route::get('user/{search?}', [UserController::class, 'index'])->name('user.index');
 
           //Penduduk route with resource except no index and destroy

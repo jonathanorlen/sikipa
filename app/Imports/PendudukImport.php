@@ -26,7 +26,7 @@ class PendudukImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'nik' => 'unique:penduduk,nik',
+            'nik' => 'required',
             'rt' => 'required',
             'rw' => 'required',
             'jenis_kelamin' => 'required',
@@ -59,10 +59,16 @@ class PendudukImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {   
         $tanggal_lahir = $this->transformDate($row['tanggal_lahir']);
+
         KartuKeluarga::firstOrCreate([
             'nomor_kk' => $row['nomor_kk']
         ]);
-        return new Penduduk([
+
+        return Penduduk::updateOrCreate(
+            [
+                'nik' => $row['nik']
+            ]
+            ,[
             'nik' => $row['nik'],
             'nama' => ucfirst(strtolower($row['nama_lengkap'])),
             'nomor_kk' => $row['nomor_kk'],

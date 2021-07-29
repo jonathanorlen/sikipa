@@ -35,12 +35,16 @@
                   <tr>
                     <th>#</th>
                     <th>Pekerjaan</th>
+                    <th>Jumlah</th>
                     <th>Action</th>
                   </tr>
                   @foreach ($items as $key => $item)
                     <tr>
                       <td>{{ $key + 1 }}</td>
                       <td>{{ $item->nama }}</td>
+                      <td>
+                        {{ $item->getPenduduk->count() }} Penduduk
+                      </td>
                       <td>
                         <a href="{{ route('admin.pekerjaan.edit', $item->id) }}" class="btn btn-info"
                           data-toggle="tooltip" title="Edit Pekerjaan">

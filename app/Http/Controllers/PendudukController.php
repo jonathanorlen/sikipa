@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penduduk;
+use App\Models\RT;
+use App\Models\RW;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
@@ -132,7 +134,7 @@ class PendudukController extends Controller
             }
             $data['golongan_darah'] =  strtoupper($request->golongan_darah);
             $penduduk->update($data);
-            return redirect()->route('admin.penduduk.index')->withSuccess('User terupdate');
+            return redirect()->route('admin.penduduk.index')->withSuccess('Penduduk terupdate');
         } catch (Exception $e) {
             return redirect()->route('admin.penduduk.index')->withError($e);
             // return Redirect::to('sharks/create')
@@ -148,7 +150,7 @@ class PendudukController extends Controller
             $data['dokumen_kk'] = $request->dokumen_kk;
             $data['dokumen_ktp'] = $request->dokumen_ktp;
             $penduduk->update($data);
-            return redirect()->route('admin.penduduk.index')->withSuccess('User Status Terupdate');
+            return redirect()->route('admin.penduduk.index')->withSuccess('Penduduk Status Terupdate');
         } catch (Exception $e) {
             return redirect()->route('admin.penduduk.index')->withError($e);
             // return Redirect::to('sharks/create')
@@ -193,5 +195,17 @@ class PendudukController extends Controller
         if ($image != '..default.jpg' && $image != null) {
             unlink(base_path('public/images/ktp/') . $image);
         }
+    }
+
+    public function rt(Request $req)
+    {
+        $rw = RT::where('rw_id', $req->id)->get();
+        return $rw;
+    }
+
+    public function rw(Request $req)
+    {
+        $rw = RW::where('kelurahan_id', $req->id)->get();
+        return $rw;
     }
 }

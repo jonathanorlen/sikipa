@@ -14,4 +14,8 @@ class Pekerjaan extends Model
     protected $fillable = [
         'nama'
     ];
+
+    public function getPenduduk(){
+        return $this->hasMany('App\Models\Penduduk', 'pekerjaan', 'nama');
+    }
 }

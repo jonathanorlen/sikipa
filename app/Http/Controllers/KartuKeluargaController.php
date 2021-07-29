@@ -77,6 +77,9 @@ class KartuKeluargaController extends Controller
     public function detail($nomor_kk,Penduduk $penduduk)
     {
         $data['data'] = $penduduk;
+        $data['kelurahan'] = DB::select('select * from kelurahan');
+        $data['rt'] = DB::select('select * from rt');
+        $data['rw'] = DB::select('select * from rw');
         return view('backend.pages.kartu_keluarga_anggota_form', $data);
     }
 

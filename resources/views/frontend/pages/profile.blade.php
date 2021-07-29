@@ -375,7 +375,7 @@
         let nomor = $(this).attr('key');
         let val = $('option:selected', this).attr('key');
         $.ajax({
-          url: '{{ route('admin.getrw') }}',
+          url: '{{ route('getrw') }}',
           data: {
             id: val
           },
@@ -421,7 +421,7 @@
         let val = $('option:selected', this).attr('key');
         console.log(val);
         $.ajax({
-          url: '{{ route('admin.getrt') }}',
+          url: '{{ route('getrt') }}',
           data: {
             id: val
           },
